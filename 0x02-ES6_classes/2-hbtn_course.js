@@ -41,7 +41,7 @@ export default class HolbertonCourse {
         throw new TypeError('students must be an array of strings');
       }
     } else {
-      throw new TypeError('students must be an array of strings');
+      throw new TypeError('students must be an array');
     }
   }
 }

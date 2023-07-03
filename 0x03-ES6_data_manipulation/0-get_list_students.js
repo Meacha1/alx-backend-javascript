@@ -19,3 +19,5 @@ export default function getListStudents() {
 
   return listStudents;
 }
+
+console.log(getListStudents());

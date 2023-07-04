@@ -1,4 +1,4 @@
-function cleanSet(set, startString) {
+export default function cleanSet(set, startString) {
   if (startString.length === 0) {
     return '';
   }
@@ -13,7 +13,3 @@ function cleanSet(set, startString) {
   }
   return [...cleanstring].join('-');
 }
-
-
-console.log(cleanSet(new Set(['bonjovi', 'bonaparte', 'bonappetit', 'banana']), 'bon'));
-console.log(cleanSet(new Set(['bonjovi', 'bonaparte', 'bonappetit', 'banana']), ''));

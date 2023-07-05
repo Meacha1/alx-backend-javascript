@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      "target": "ES5",
+      "strict": true,
+      "esModuleInterop": true,
+      "module": "commonjs"
+    },
+    "include": ["*.ts", "js/main.ts"],
+    "exclude": ["node_modules"]
+}
+  

@@ -28,6 +28,30 @@ interface printTeacherFunction {
   (firstName: string, lastName: string): string;
 }
 
+
 console.log(printTeacher("John", "Doe"));
 console.log(director1);
 
+interface StudentConstructor {
+  new (firstName: string, lastName: string): StudentClass;
+}
+
+interface StudentClass {
+  workOnHomework(): string;
+  displayName(): string;
+}
+
+class StudentClassImpl implements StudentClass {
+  constructor(private firstName: string, private lastName: string) {}
+
+  workOnHomework(): string {
+    return "Currently working";
+  }
+
+  displayName(): string {
+    return this.firstName;
+  }
+}
+
+const StudentClass: StudentConstructor = StudentClassImpl;
+export { StudentClass };

@@ -1,9 +1,11 @@
 /**
  * Desplay a message in the console.
+ * @param {string} message - The message to display.
+ * @author Meacha Teshome
  */
 
 
-function displayMessage(message) {
+const displayMessage = (message) => {
     console.log(message);
 }
 

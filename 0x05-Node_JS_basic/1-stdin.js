@@ -1,6 +1,3 @@
-/**
- * Takes name and welcomes the user
- */
 process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
 process.stdin.on('readable', () => {

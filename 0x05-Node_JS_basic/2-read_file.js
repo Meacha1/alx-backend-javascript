@@ -3,22 +3,40 @@ const fs = require('fs');
 function countStudents(path) {
   try {
     const data = fs.readFileSync(path, 'utf8');
-    const lines = data.split('\n').filter(line => line.trim() !== '');
+    const lines = data.trim().split('\n');
+    const fields = lines[0].split(',');
 
-    if (lines.length === 0) {
-      throw new Error('Cannot load the database');
+    if (fields.length <= 1) {
+      throw new Error('Invalid database format');
     }
 
-    const fields = lines[0].split(',');
-    const students = lines.slice(1);
+    const students = {};
 
-    console.log(`Number of students: ${students.length}`);
+    for (let i = 1; i < lines.length; i++) {
+      const values = lines[i].split(',');
 
-    fields.forEach(field => {
-      const studentsInField = students.filter(student => student.split(',')[fields.indexOf(field)] === '1');
-      const studentNames = studentsInField.map(student => student.split(',')[0]).join(', ');
-      console.log(`Number of students in ${field}: ${studentsInField.length}. List: ${studentNames}`);
-    });
+      if (values.length !== fields.length) {
+        continue; // Skip invalid lines
+      }
+
+      for (let j = 1; j < values.length; j++) {
+        const field = fields[j].trim();
+        const student = values[j].trim();
+
+        if (field && student) {
+          if (!students[field]) {
+            students[field] = [];
+          }
+          students[field].push(student);
+        }
+      }
+    }
+
+    console.log(`Number of students: ${lines.length - 1}`);
+
+    for (const field in students) {
+      console.log(`Number of students in ${field}: ${students[field].length}. List: ${students[field].join(', ')}`);
+    }
   } catch (error) {
     throw new Error('Cannot load the database');
   }

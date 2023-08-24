@@ -2,30 +2,25 @@ const fs = require('fs');
 
 function countStudents(path) {
   try {
-    const data = fs.readFileSync(path, 'utf-8');
-    const lines = data.trim().split('\n');
-    const students = lines.filter(line => line !== '');
+    const data = fs.readFileSync(path, 'utf8');
+    const lines = data.split('\n').filter(line => line.trim() !== '');
 
-    if (students.length === 0) {
+    if (lines.length === 0) {
       throw new Error('Cannot load the database');
     }
 
+    const fields = lines[0].split(',');
+    const students = lines.slice(1);
+
     console.log(`Number of students: ${students.length}`);
 
-    const fields = {};
-    for (const student of students) {
-      const [firstName, field] = student.split(',');
-      if (!fields[field]) {
-        fields[field] = [];
-      }
-      fields[field].push(firstName);
-    }
-
-    for (const field in fields) {
-      console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
-    }
+    fields.forEach(field => {
+      const studentsInField = students.filter(student => student.split(',')[fields.indexOf(field)] === '1');
+      const studentNames = studentsInField.map(student => student.split(',')[0]).join(', ');
+      console.log(`Number of students in ${field}: ${studentsInField.length}. List: ${studentNames}`);
+    });
   } catch (error) {
-    console.error(error.message);
+    throw new Error('Cannot load the database');
   }
 }
 
